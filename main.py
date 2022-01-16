@@ -36,14 +36,14 @@ def send_call():
     attack_number_phone.call_next_service()
 
 def send_message(only_sms=None):
-    if only_sms == None:
+    if only_sms is None:
         attack_number_phone.random_service()
 
     elif only_sms == True:
         attack_number_phone.sms_random_service()
 
 def send_message_next(only_sms=None):
-    if only_sms == None:
+    if only_sms is None:
         attack_number_phone.next_service()
 
     elif only_sms == True:
@@ -54,7 +54,9 @@ class AntichristApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.configuration_screen = {'special_abilities':None, 'style':None, 'hell':None, 'my_style':None}
-        self.start_hell = None;self.queries_color = None;self.storage = None
+        self.start_hell = None
+        self.queries_color = None
+        self.storage = None
         self.configuration_app(way='/storage/emulated/0/AntichristOne')
 
         if self.configuration_screen['hell'] == ['True']:
@@ -80,7 +82,7 @@ class AntichristApp(MDApp):
 
             self.you_dead()
 
-        if self.start_hell == None:
+        if self.start_hell is None:
 
             if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
 
@@ -148,10 +150,7 @@ class AntichristApp(MDApp):
         self.configuration_screen['my_style'] = open('style_configuration/my_style', 'r').read().split()
         self.configuration_screen['special_abilities'] = open('style_configuration/special_abilities', 'r').read().split()
 
-        if self.configuration_screen['special_abilities'] == ['False']:
-            pass
-
-        else:
+        if self.configuration_screen['special_abilities'] != ['False']:
             if os.path.isdir(way) == False:
                 try:
                     os.mkdir(way)
@@ -178,12 +177,12 @@ class AntichristApp(MDApp):
             self.screen.ids.title.font_size = 95
 
             if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                if self.title == None:
-                    self.screen.ids.title.text = f"[color=#fedcff]Dangerously[/color]"
+                if self.title is None:
+                    self.screen.ids.title.text = '[color=#fedcff]Dangerously[/color]'
                 else:
                     self.screen.ids.title.text = f"[color={self.title}]Dangerously[/color]"
             else:
-                self.screen.ids.title.text = f"[color=#fedcff]Dangerously[/color]"
+                self.screen.ids.title.text = '[color=#fedcff]Dangerously[/color]'
 
             self.screen.ids.button_attack_cancel.text = 'Death awaits you'
 
@@ -196,12 +195,12 @@ class AntichristApp(MDApp):
             self.screen.ids.title.font_size = 120
 
             if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                if self.title == None:
-                    self.screen.ids.title.text = f"[color=#fedcff]Antichrist[/color]"
+                if self.title is None:
+                    self.screen.ids.title.text = '[color=#fedcff]Antichrist[/color]'
                 else:
                     self.screen.ids.title.text = f"[color={self.title}]Antichrist[/color]"
             else:
-                self.screen.ids.title.text = f"[color=#fedcff]Antichrist[/color]"
+                self.screen.ids.title.text = '[color=#fedcff]Antichrist[/color]'
 
             self.screen.ids.button_attack_cancel.text = 'Attack'
 
@@ -215,22 +214,19 @@ class AntichristApp(MDApp):
         while self.target_status_666:
             time.sleep(0.5)
             if self.screen.ids.target.text == '666':
-                if self.hell666_status == True:
-                    pass
-                else:
+                if self.hell666_status != True:
                     self.welcom_to_hell_activity(action='hell')
                     self.hell666_status = True
-            else:
-                if self.hell666_status == True:
-                    self.welcom_to_hell_activity(action='cancel')
-                    self.hell666_status = False
+            elif self.hell666_status == True:
+                self.welcom_to_hell_activity(action='cancel')
+                self.hell666_status = False
 
     def left_to_live(self, date):
         if date == 'hours':
+            data_dead['hours']=data_dead['hours'] - 1
+
             while self.you_dead_status:
                 time.sleep(self.dead_time['hour'])
-                data_dead['hours']=data_dead['hours'] - 1
-
         elif date == 'minutes':
             while self.you_dead_status:
                 time.sleep(self.dead_time['minute'])
@@ -246,7 +242,7 @@ class AntichristApp(MDApp):
                 if data_dead['sec'] == 0:
                     if data_dead['minutes'] == 0:
                         if data_dead['hours'] == 0:
-                            break;self.you_dead_status=False
+                            break
                         data_dead['hours']=data_dead['hours'] - 1
                         data_dead['minutes']=data_dead['minutes'] = 60
 
@@ -273,14 +269,16 @@ class AntichristApp(MDApp):
             if self.link_th == False:
                 break
 
-            time.sleep(6);Animation(center_y_1=-2, duration=2).start(self.links)
+            time.sleep(6)
+            Animation(center_y_1=-2, duration=2).start(self.links)
             if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                 self.links.text = f'[color={self.link_tg_color}]'+str(new_text)+'[/color]'
 
             else:
-                self.links.text = f'[color=#fedcff]'+str(new_text)+'[/color]'
+                self.links.text = '[color=#fedcff]' + str(new_text) + '[/color]'
 
-            time.sleep(9);Animation(center_y_1=0.2, duration=2).start(self.links)
+            time.sleep(9)
+            Animation(center_y_1=0.2, duration=2).start(self.links)
 
 
     def hell_666(self):
@@ -301,24 +299,25 @@ class AntichristApp(MDApp):
             toast(f'{66-self.click}')
 
     def bufer(self, bufer=None, widget=None):
-        if self.configuration_screen['special_abilities'] == ['False']:
-            if self.configuration_screen['hell'] in [['False'],['None']]:
-                self.hell_666()
+        if self.configuration_screen['special_abilities'] == [
+            'False'
+        ] and self.configuration_screen['hell'] in [['False'], ['None']]:
+            self.hell_666()
 
         if self.screen.ids.target.text.lower() == 'antichrist':
             widget.text = 'I love you!'
 
         if bufer == True:
-            phone=''
-            for xxx in re.findall(r"[0-9]+", Clipboard.paste()):
-                phone+=xxx
+            phone = ''.join(re.findall(r"[0-9]+", Clipboard.paste()))
             phone='+'+phone
 
             try:
-                if isinstance(int(phone[1:]), int):
-                    if widget.text == '':
-                        if len(phone) > 6:
-                            widget.text = phone
+                if (
+                    isinstance(int(phone[1:]), int)
+                    and widget.text == ''
+                    and len(phone) > 6
+                ):
+                    widget.text = phone
             except Exception:
                 pass
 
@@ -371,43 +370,43 @@ class AntichristApp(MDApp):
                     threading.Thread(target=send_message).start()
                     x_count += 4
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
 
                         threading.Thread(target=send_message_next).start()
                         x_count += 1
 
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
 
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
 
                         threading.Thread(target=send_message_next).start()
                         x_count += 1
 
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
 
                 except Exception:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'Call':
             while self.status:
                 try:
-                    self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                    self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                     threading.Thread(target=send_call).start()
                     x_count += 1
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                     time.sleep(0.5)
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'SMS':
             while self.status:
@@ -419,23 +418,23 @@ class AntichristApp(MDApp):
                     x_count += 4
 
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
 
                         threading.Thread(target=send_message_next, args=(True, )).start()
                         x_count += 1
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
 
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                         threading.Thread(target=send_message_next, args=(True, )).start()
                         x_count += 1
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
 
                 except Exception:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
     def threding_attack_hard(self):
         x_count = 0
@@ -446,14 +445,14 @@ class AntichristApp(MDApp):
                     threading.Thread(target=send_message).start()
                     x_count += 2
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'Call':
             while self.status:
@@ -462,14 +461,14 @@ class AntichristApp(MDApp):
                     x_count += 1
                     time.sleep(3)
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'SMS':
             while self.status:
@@ -478,14 +477,14 @@ class AntichristApp(MDApp):
                     threading.Thread(target=send_message, args=(True, )).start()
                     x_count += 2
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
 
     def threding_attack_light(self):
@@ -497,15 +496,15 @@ class AntichristApp(MDApp):
                     time.sleep(0.6)
                     x_count += 1
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                     time.sleep(0.9)
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'Call':
             while self.status:
@@ -513,15 +512,15 @@ class AntichristApp(MDApp):
                     threading.Thread(target=send_call).start()
                     x_count += 1
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                     time.sleep(6)
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
         elif self.what == 'SMS':
             while self.status:
@@ -530,15 +529,15 @@ class AntichristApp(MDApp):
                     time.sleep(0.6)
                     x_count += 1
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
-                        self.label.text = f"[color={self.queries_color}]{str(x_count)}[/color]"
+                        self.label.text = f'[color={self.queries_color}]{x_count}[/color]'
                     else:
-                        self.label.text = f"[color=#fdb3ff]{str(x_count)}[/color]"
+                        self.label.text = f'[color=#fdb3ff]{x_count}[/color]'
                     time.sleep(0.9)
                 except Exception as e:
                     if [self.configuration_screen['my_style'][0], self.storage] == ['True', True]:
                         self.label.text = f"[color={self.queries_color}]ERROR[/color]"
                     else:
-                        self.label.text = f"[color=#fdb3ff]ERROR[/color]"
+                        self.label.text = '[color=#fdb3ff]ERROR[/color]'
 
 
     def attack(self, attack=None):

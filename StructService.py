@@ -26,16 +26,12 @@ class Distribution_Service():
             self.request_service(next(self.sms))
         except StopIteration:
             self.next = iter(self.services_sms)
-        else:
-            pass
 
     def call_next_service(self):
         try:
             self.request_service(next(self.call))
         except StopIteration:
             self.next = iter(self.services_call)
-        else:
-            pass
 
     def random_service(self):
         try:
@@ -48,8 +44,6 @@ class Distribution_Service():
             self.request_service(next(self.next))
         except StopIteration:
             self.next = iter(self.services)
-        else:
-            pass
 
     def request_service(self, service):
         try:
