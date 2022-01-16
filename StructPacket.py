@@ -15,8 +15,7 @@ def phone_mask(phone, maska):
     str_list = list(phone)
     for xxx in str_list:
         maska = maska.replace('#', xxx, 1)
-    else:
-        return maska
+    return maska
 
 
 class Service:
@@ -31,35 +30,32 @@ class Service:
             self.phone_mask = str(phone_mask(phone=(self.phone_not_pluse), maska='+# (###) ###-##-##'))
             if self.phone[1] == '3':
                 self.country_code = '380'
+            elif (
+                self.phone[1] != '7'
+                and self.phone[1] != '8'
+                and self.phone[1] == '9'
+            ):
+                self.country_code = '998'
+            elif self.phone[1] not in ['7', '8']:
+                self.country_code = str(self.phone[1]) + str(self.phone[2])
             else:
-                if self.phone[1] == '7':
-                    self.country_code = '7'
-                else:
-                    if self.phone[1] == '8':
-                        self.country_code = '7'
-                    else:
-                        if self.phone[1] == '9':
-                            self.country_code = '998'
-                        else:
-                            self.country_code = str(self.phone[1]) + str(self.phone[2])
-        else:
-            if isinstance(int(self.phone), int):
-                self.phone_not_pluse = str(number_phone)
-                self.phone_mask = str(phone_mask(phone=number_phone, maska='+# (###) ###-##-##'))
-                if self.phone[0] == '3':
-                    self.country_code = '380'
-                else:
-                    if self.phone[0] == '7':
-                        self.country_code = '7'
-                    else:
-                        if self.phone[1] == '8':
-                            self.country_code = '7'
-                        else:
-                            if self.phone[0] == '9':
-                                self.country_code = '998'
-                            else:
-                                self.country_code = str(self.phone[0]) + str(self.phone[1])
-                self.phone = '+' + str(number_phone)
+                self.country_code = '7'
+        elif isinstance(int(self.phone), int):
+            self.phone_not_pluse = str(number_phone)
+            self.phone_mask = str(phone_mask(phone=number_phone, maska='+# (###) ###-##-##'))
+            if self.phone[0] == '3':
+                self.country_code = '380'
+            elif (
+                self.phone[0] != '7'
+                and self.phone[1] != '8'
+                and self.phone[0] == '9'
+            ):
+                self.country_code = '998'
+            elif self.phone[0] != '7' and self.phone[1] != '8':
+                self.country_code = str(self.phone[0]) + str(self.phone[1])
+            else:
+                self.country_code = '7'
+            self.phone = '+' + str(number_phone)
 
     def benzuber(self):
         requests.post('https://app.benzuber.ru/login', data={'phone': self.phone}, headers={'X-Requested-With':'XMLHttpRequest',  'Connection':'keep-alive',  'Pragma':'no-cache',  'Cache-Control':'no-cache',  'Accept-Encoding':'gzip, deflate, br',  'User-Agent':user_agent(),  'DNT':'1'})
@@ -974,15 +970,19 @@ class Service:
           data={'phone': self.phone})
 
     def topladeba(self):
-        requests.post('https://topbladebar.ru/user_account/ajax.php?do=sms_code',
-          data={'phone': f"{8}{self.phone_mask[2:]}"},
-          headers={'X-Requested-With':'XMLHttpRequest',
-         'Connection':'keep-alive',
-         'Pragma':'no-cache',
-         'Cache-Control':'no-cache',
-         'Accept-Encoding':'gzip, deflate, br',
-         'User-Agent':user_agent(),
-         'DNT':'1'})
+        requests.post(
+            'https://topbladebar.ru/user_account/ajax.php?do=sms_code',
+            data={'phone': f'8{self.phone_mask[2:]}'},
+            headers={
+                'X-Requested-With': 'XMLHttpRequest',
+                'Connection': 'keep-alive',
+                'Pragma': 'no-cache',
+                'Cache-Control': 'no-cache',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'User-Agent': user_agent(),
+                'DNT': '1',
+            },
+        )
 
     def topshop(self):
         requests.post('https://www.top-shop.ru/login/loginByPhone/',
@@ -2068,7 +2068,7 @@ class Service:
             auth_bs = bs(auth_html.content, 'html.parser')
             token = auth_bs.select('meta[name=csrf-token]')[0]['content']
             password = password()
-            for i in range(2):
+            for _ in range(2):
                 requests.post('https://apteka38plus.ru/register/confirm', data={'_token':token,  'name':_ru_name_(),  'phone':phone_mask(self.phone_not_pluse, '+# (###) ###-##-##'),
                  'email':email(),
                  'password':password,  'password_confirmation':password,  'redirect_to':'https://apteka38plus.ru/verify',
@@ -2105,7 +2105,16 @@ class Service:
         headers_copy = data_headers
         headers_copy['User-Agent'] = user_agent()
 
-        ddd = f"0"+str(random.choice([1,2,3,4,5,6,7,8,9]))+".0"+str(random.choice([1,2,3,4,5,6,7,8,9]))+".198"+str(random.choice([1,2,3,4,5,6,7,8,9]))+""
+        ddd = (
+            '0'
+            + str(random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+            + ".0"
+            + str(random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+            + ".198"
+            + str(random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+            + ""
+        )
+
         print(ddd)
         requests.post('https://zoloto585.ru/api/bcard/reg2/', json={'birthdate': ddd, 'city': "Москва", 'email': email(), 'name': _ru_name_(), 'patronymic': _ru_name_(), 'phone': phone_mask(self.phone_not_pluse, "+# (###) ###-###-##"), 'sex': "m", 'surname':_ru_name_()}, headers=headers_copy)
 

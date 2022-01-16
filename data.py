@@ -167,9 +167,7 @@ def username():
     return name() + data_user
 
 def x(int_range=4):
-    numbers = []
-    for _ in range(int_range):
-        numbers.append(str(random.randint(1, 9)))
+    numbers = [str(random.randint(1, 9)) for _ in range(int_range)]
     return "".join(numbers)
 
 def email():
